@@ -16,9 +16,7 @@ async def predict_image(file: UploadFile, response: Response):
     try:
         content = file.file.read()
         prediction = predict(await read_image(content))
-        return {
-            "result": str(prediction)
-        }
+        return prediction
     except Exception as error:
         response.status_code = 500
         return {

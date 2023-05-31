@@ -2,7 +2,6 @@
 from io import BytesIO
 import tensorflow as tf
 import numpy as np
-from keras.applications.imagenet_utils import decode_predictions
 
 from PIL import Image
 
@@ -21,7 +20,8 @@ def predict(image: Image.Image):
         if prediction[0][i] == max_probability:
             max_index = i
 
-    print("Probabilitas tertinggi:", max_probability)
+    max_probability = max_probability * 100
+    print("Probabilitas tertinggi: {:.0f}%".format(max_probability))
     print("Indeks probabilitas tertinggi:", max_index)
     if max_index == 0:
         result = "Matang"
@@ -30,7 +30,10 @@ def predict(image: Image.Image):
     else:
         result = "Setengah Matang"
     print(f"Result :  {result}")
-    return result
+    return {
+        "accuracy": "{:.0f}%".format(max_probability),
+        "result": result
+    }
 
 
 async def read_image(file) -> Image.Image:

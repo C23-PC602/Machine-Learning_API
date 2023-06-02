@@ -10,7 +10,7 @@ RUN apt-get install unzip
 
 RUN pip install gdown
 
-RUN gdown 
+RUN gdown 19laMMfY8zX8TM8Ni5N9lgDdcrANTsyyD
 
 RUN unzip model.zip
 

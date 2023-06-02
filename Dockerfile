@@ -19,5 +19,3 @@ RUN unzip model.zip
 RUN rm model.zip
 
 RUN pip install -r requirements.txt
-
-CMD [ "python" , "main.py"]

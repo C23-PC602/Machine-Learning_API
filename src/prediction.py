@@ -1,12 +1,11 @@
 
-import tensorflow as tf
 import numpy as np
-
+from tensorflow.python.keras.models import load_model
 from PIL import Image
 
 
 def predict(image: Image.Image):
-    model = tf.keras.models.load_model("src/model.h5")
+    model = load_model('src/model.h5', compile=False)
 
     image = np.asarray( image.resize((224,224)) )[..., :3]
     image = np.expand_dims(image, 0)
@@ -36,4 +35,3 @@ def predict(image: Image.Image):
         "probability": max_probability,
         "result": result
     }
-

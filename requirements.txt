@@ -1,0 +1,6 @@
+tensorflow
+pandas
+numpy
+fastapi
+uvicorn[standart]
+gdown

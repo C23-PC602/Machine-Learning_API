@@ -8,6 +8,8 @@ RUN apt-get update -y
 
 RUN apt-get install unzip
 
+RUN pip install python-multipart
+
 RUN pip install gdown
 
 RUN gdown 1eYca1OkvzTriyvr9qjGUGlyzxb-A3NMJ

@@ -36,6 +36,3 @@ async def predict_image(file: UploadFile, response: Response):
         response.status_code = 500
         return {"message": str(error)}
 
-
-print("START...")
-uvicorn.run(app, host="0.0.0.0")

@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, Response
 from src.prediction import predict
 from src.read_image import read_image
 import uvicorn
+import sys
 
 __title__ = "API Model Coffee Detection"
 __description__ = "This is API for Machine Learning"
@@ -36,3 +37,7 @@ async def predict_image(file: UploadFile, response: Response):
         response.status_code = 500
         return {"message": str(error)}
 
+PORT = int(sys.argv[1])
+HOST = "0.0.0.0"
+uvicorn.run(app, host=HOST, port=PORT)
+print(f"listening {HOST}:{PORT} ...")

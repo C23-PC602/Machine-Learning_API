@@ -37,7 +37,3 @@ async def predict_image(file: UploadFile, response: Response):
         response.status_code = 500
         return {"message": str(error)}
 
-PORT = int(sys.argv[1])
-HOST = "0.0.0.0"
-uvicorn.run(app, host=HOST, port=PORT)
-print(f"listening {HOST}:{PORT} ...")

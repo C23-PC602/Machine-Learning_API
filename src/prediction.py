@@ -5,7 +5,7 @@ from PIL import Image
 
 
 def predict(image: Image.Image):
-    model = load_model('model.h5', compile=False)
+    model = load_model('model_DCoffee_Classification.h5', compile=False)
 
     image = np.asarray( image.resize((224,224)) )[..., :3]
     image = np.expand_dims(image, 0)

@@ -1,6 +1,6 @@
 import numpy as np
 from tensorflow.python.keras.models import load_model
-from keras_preprocessing import image
+from keras_preprocessing.image import img_to_array
 from PIL import Image
 
 
@@ -8,7 +8,7 @@ def predict(target: Image.Image):
     model = load_model("model_DCoffee_Classification.h5", compile=False)
     print(model)
 
-    target = image.img_to_array(target.resize((224, 224)))
+    target = img_to_array(target.resize((224, 224)))
     print(target.shape)
     target = np.expand_dims(target, 0)
     target_image = np.vstack([target])

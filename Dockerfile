@@ -18,7 +18,7 @@ RUN pip install gdown
 
 #RUN rm model.zip
 
-#RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 EXPOSE 8080
 

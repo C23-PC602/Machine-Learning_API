@@ -1,33 +1,27 @@
 import numpy as np
 from tensorflow.python.keras.models import load_model
+from keras_preprocessing import image
 from PIL import Image
 
 
-def predict(image: Image.Image):
+def predict(target: Image.Image):
     model = load_model("model_DCoffee_Classification.h5", compile=False)
+    print(model)
 
-    image = np.asarray(image.resize((224, 224)))[..., :3]
-    image = np.expand_dims(image, 0)
-    print(f"IMAGE SHAPE : {image.shape}")
+    target = image.img_to_array(target.resize((224, 224)))
+    print(target.shape)
+    target = np.expand_dims(target, 0)
+    target_image = np.vstack([target])
+    print(f"Bit index 0 : {target_image[-1, 0, 0]}")
 
-    image = image / 127.5 - 1.0
+    prediction: list = list(model.predict(target_image, 10)[0])
 
-    prediction = model.predict(image)
-    print(f"result prediction : {prediction[0]}")
-    max_probability = max(prediction[0])
-    max_index = 0
-
-    for i, pred in enumerate(prediction[0]):
-        if pred == max_probability:
-            max_index = i
-
-    max_probability = max_probability * 100
+    print(f"result prediction : {prediction}")
+    max_index = prediction.index(max(prediction))
 
     label = ["Matang", "Mentah", "Setengah Matang"]
     result = label[max_index]
 
-    print("Probabilitas tertinggi: {:.0f}%".format(max_probability))
-    print("Indeks probabilitas tertinggi:", max_index)
     print(f"Result :  {result}")
 
-    return {"probability": max_probability, "result": result}
+    return {"result": result}

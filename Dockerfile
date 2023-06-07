@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN apt-get update -y
+RUN apt-get update
 
-RUN apt-get install unzip
+RUN apt-get install unzip 
 
 RUN pip install python-multipart
 
@@ -20,4 +20,8 @@ RUN rm model.zip
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "main.py"]
+EXPOSE 8001
+
+CMD uvicorn main:app --host 0.0.0.0 --port 8001
+
+

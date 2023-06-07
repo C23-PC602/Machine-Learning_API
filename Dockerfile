@@ -12,14 +12,16 @@ RUN pip install python-multipart
 
 RUN pip install gdown
 
-RUN gdown 1eYca1OkvzTriyvr9qjGUGlyzxb-A3NMJ
+#RUN gdown 1eYca1OkvzTriyvr9qjGUGlyzxb-A3NMJ
 
-RUN unzip model.zip
+#RUN unzip model.zip
 
-RUN rm model.zip
+#RUN rm model.zip
 
-RUN pip install -r requirements.txt
+#RUN pip install -r requirements.txt
 
-CMD uvicorn main:app --host 0.0.0.0 --port $PORT
+EXPOSE 8080
+
+CMD ["python", "main.py"]
 
 

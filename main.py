@@ -1,3 +1,6 @@
+import os
+
+import uvicorn
 from fastapi import FastAPI, UploadFile, Response
 from src.prediction import predict
 from src.read_image import read_image
@@ -34,3 +37,6 @@ async def predict_image(file: UploadFile, response: Response):
     except Exception as error:
         response.status_code = 500
         return {"message": str(error)}
+
+__port__ = os.getenv("PORT", default=8080)
+uvicorn.run(app, host="0.0.0.0", port=__port__)

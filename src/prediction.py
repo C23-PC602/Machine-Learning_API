@@ -1,13 +1,12 @@
-
 import numpy as np
 from tensorflow.python.keras.models import load_model
 from PIL import Image
 
 
 def predict(image: Image.Image):
-    model = load_model('model.h5', compile=False)
+    model = load_model("model_DCoffee_Classification.h5", compile=False)
 
-    image = np.asarray( image.resize((224,224)) )[..., :3]
+    image = np.asarray(image.resize((224, 224)))[..., :3]
     image = np.expand_dims(image, 0)
     print(f"IMAGE SHAPE : {image.shape}")
 
@@ -24,14 +23,11 @@ def predict(image: Image.Image):
 
     max_probability = max_probability * 100
 
-    label = ['Matang', 'Mentah', 'Setengah Matang']
+    label = ["Matang", "Mentah", "Setengah Matang"]
     result = label[max_index]
 
     print("Probabilitas tertinggi: {:.0f}%".format(max_probability))
     print("Indeks probabilitas tertinggi:", max_index)
     print(f"Result :  {result}")
 
-    return {
-        "probability": max_probability,
-        "result": result
-    }
+    return {"probability": max_probability, "result": result}

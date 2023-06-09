@@ -1,4 +1,3 @@
-import argparse
 import os
 
 import uvicorn
@@ -25,8 +24,8 @@ async def index():
 
 @app.post("/api/predict")
 async def predict(file: UploadFile, response: Response):
-    extension = file.filename.split(".")[-1] in ("jpg", "JPG", "jpeg", "png")
-    if not extension:
+    extension = ["image/jpeg", "image/png", "image/jpg"]
+    if file.content_type not in extension:
         response.status_code = 400
         return {"message": "Format gambar tidak sesuai"}
     try:
@@ -39,7 +38,6 @@ async def predict(file: UploadFile, response: Response):
         response.status_code = 500
         return {"message": str(error)}
 
-__port__ = os.getenv("PORT", default=8001)
-print(f"THIS IS PORT {__port__}")
-
-uvicorn.run(app, host="0.0.0.0", port=8001)
+port = os.environ.get("PORT", 8080)
+print(f"Listening to http://0.0.0.0:{port}")
+uvicorn.run(app, host='0.0.0.0', port=port)

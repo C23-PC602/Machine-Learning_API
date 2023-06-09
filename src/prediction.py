@@ -10,7 +10,7 @@ def predict_images(image: Image.Image):
     image_to_array = img_to_array(image.resize((224, 224)))
     print(image_to_array.shape)
     image_preprocess = np.expand_dims(image_to_array, 0)
-    image_preprocess /= 255.0
+    image_preprocess = np.vstack([image_preprocess])
     print(f"Byte index 0 : {image_preprocess[-1, 0, 0]}")
 
     prediction: list = list(model.predict(image_preprocess, 10)[0])

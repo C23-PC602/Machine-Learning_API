@@ -1,5 +1,8 @@
+import os
+
+import uvicorn
 from fastapi import FastAPI, UploadFile, Response
-from src.prediction import predict
+from src.prediction import predict_images
 from src.read_image import read_image
 
 __title__ = "API Model Coffee Detection"
@@ -20,17 +23,21 @@ async def index():
 
 
 @app.post("/api/predict")
-async def predict_image(file: UploadFile, response: Response):
-    extension = file.filename.split(".")[-1] in ("jpg", "JPG", "jpeg", "png")
-    if not extension:
+async def predict(file: UploadFile, response: Response):
+    extension = ["image/jpeg", "image/png", "image/jpg"]
+    if file.content_type not in extension:
         response.status_code = 400
         return {"message": "Format gambar tidak sesuai"}
     try:
         content = file.file.read()
         image = await read_image(content)
-        prediction = predict(image)
+        prediction = predict_images(image)
         return prediction
 
     except Exception as error:
         response.status_code = 500
         return {"message": str(error)}
+
+port = os.environ.get("PORT", 8080)
+print(f"Listening to http://0.0.0.0:{port}")
+uvicorn.run(app, host='0.0.0.0', port=port)

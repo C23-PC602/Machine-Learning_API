@@ -1,7 +1,8 @@
 tensorflow
+keras_preprocessing
 pandas
 numpy
 fastapi
-uvicorn[standart]
+uvicorn
 gdown
 pillow
